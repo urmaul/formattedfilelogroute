@@ -12,7 +12,7 @@ class FormattedFileLogRoute extends CFileLogRoute
      * Static var values
      * @var array
      */
-    protected $vars = array();
+    protected $staticVars = array();
     
     /**
      * Static var names
@@ -59,7 +59,7 @@ class FormattedFileLogRoute extends CFileLogRoute
             } while (++$count < YII_TRACE_LEVEL);
         }
         
-        $vars = $this->vars + array(
+        $vars = $this->staticVars + array(
             'time'     => @date('Y/m/d H:i:s', $time),
             'level'    => $level,
             'category' => $category,
@@ -84,7 +84,7 @@ class FormattedFileLogRoute extends CFileLogRoute
     protected function addStaticVar($name)
     {
         if (strpos($this->format, '{' . $name . '}') !== false) {
-            $this->vars[$name] = $this->$name;
+            $this->staticVars[$name] = $this->$name;
         }
     }
     
