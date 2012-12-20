@@ -8,9 +8,10 @@ Add route config to log routes. It will look like this:
 
 ```php
 array(
-	'class'   => 'ext.formattedfilelogroute.FormattedFileLogRoute',
-	'format'  => '{time}  {msg}',
-	'logFile' => 'formatted.log',
+	'class'      => 'ext.formattedfilelogroute.FormattedFileLogRoute',
+	'format'     => "{time}\t{ip}\t{msg}",
+	'categories' => 'application',
+	'logFile'    => 'formatted.log',
 ),
 ```
 
