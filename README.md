@@ -21,6 +21,8 @@ You can use these variables in your log format:
 
 * {ip} - client ip
 * {uri} - request URI
+* {ref} - request referer
+* {sref} - short request referer (domain name is removed if referer domain is current domain)
 * {time} - current time
 * {level} - log message level
 * {category} - log message category
