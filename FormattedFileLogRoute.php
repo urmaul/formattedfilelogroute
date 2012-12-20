@@ -2,12 +2,24 @@
 
 class FormattedFileLogRoute extends CFileLogRoute
 {
+    /**
+     * Log message format
+     * @var string
+     */
     public $format = "{time} [{level}] [{category}] {message}";
     
+    /**
+     * Static var values
+     * @var array
+     */
     protected $vars = array();
     
+    /**
+     * Static var names
+     * @var array
+     */
     protected $staticVarNames = array('ip', 'uri', 'ref', 'sref');
-        
+    
     public function init()
     {
         parent::init();
@@ -16,6 +28,15 @@ class FormattedFileLogRoute extends CFileLogRoute
             $this->addStaticVar($name);
     }
     
+    /**
+     * Returns formatted log message.
+     * @see CFileLogRoute::formatLogMessage()
+     * @param string $message
+     * @param string $level
+     * @param string $category
+     * @param integer $time
+     * @return string 
+     */
     protected function formatLogMessage($message, $level, $category, $time)
     {
         $msg = explode("\n", $message);
@@ -56,6 +77,10 @@ class FormattedFileLogRoute extends CFileLogRoute
     }
     
     
+    /**
+     * Adds named static var to vars array if it is used in format
+     * @param string $name 
+     */
     protected function addStaticVar($name)
     {
         if (strpos($this->format, '{' . $name . '}') !== false) {
@@ -64,11 +89,19 @@ class FormattedFileLogRoute extends CFileLogRoute
     }
     
     
+    /**
+     * Returns named var "ip" - client IP
+     * @return string 
+     */
     protected function getIp()
     {
         return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '[no_ip]';
     }
     
+    /**
+     * Returns named var "uri" - current request uri
+     * @return string
+     */
     protected function getUri()
     {
         $uri = '[no_uri]';
@@ -87,11 +120,19 @@ class FormattedFileLogRoute extends CFileLogRoute
         return $uri;
     }
     
+    /**
+     * Returns named var "ref" - request referer
+     * @return string 
+     */
     protected function getRef()
     {
         return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '[no_ref]';
     }
     
+    /**
+     * Returns named var "sref" - request referer with domain name removed
+     * @return string 
+     */
     protected function getSref()
     {
         $ref = $this->getRef();
