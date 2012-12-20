@@ -14,22 +14,7 @@ class FormattedFileLogRoute extends CFileLogRoute
             $this->vars['ip'] = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '[no_ip]';
         }
         
-        $request = Yii::app()->getComponent('request');
-        /* @var $request CHttpRequest */
-        
-        if (strpos($this->format, '{uri}') !== false) {
-            $uri = '[no_uri]';
-            
-            if (isset($request)) {
-                try {
-                    $uri = $request->getRequestUri();
-
-                } catch (CException $exc) {
-                }
-            }
-            
-            $this->vars['uri'] = $uri;
-        }
+        $this->addStaticVar('uri');
     }
     
     protected function formatLogMessage($message, $level, $category, $time)
@@ -69,5 +54,32 @@ class FormattedFileLogRoute extends CFileLogRoute
         }
         
         return $str . "\n";
+    }
+    
+    
+    protected function addStaticVar($name)
+    {
+        if (strpos($this->format, '{' . $name . '}') !== false) {
+            $this->vars[$name] = $this->$name;
+        }
+    }
+    
+    
+    protected function getUri()
+    {
+        $uri = '[no_uri]';
+        
+        $request = Yii::app()->getComponent('request');
+        /* @var $request CHttpRequest */
+        
+        if (isset($request)) {
+            try {
+                $uri = $request->getRequestUri();
+
+            } catch (CException $exc) {
+            }
+        }
+
+        return $uri;
     }
 }
