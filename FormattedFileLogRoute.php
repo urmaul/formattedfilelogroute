@@ -9,6 +9,12 @@ class FormattedFileLogRoute extends CFileLogRoute
     public $format = "{time} [{level}] [{category}] {message}";
     
     /**
+     * Default values array
+     * @var array
+     */
+    public $defaults = array();
+    
+    /**
      * Static var values
      * @var array
      */
@@ -23,6 +29,12 @@ class FormattedFileLogRoute extends CFileLogRoute
     public function init()
     {
         parent::init();
+        
+        $this->defaults += array(
+            'ip'  => '[no_ip]',
+            'uri' => '[no_uri]',
+            'ref' => '[no_ref]',
+        );
         
         foreach ($this->staticVarNames as $name)
             $this->addStaticVar($name);
@@ -95,7 +107,9 @@ class FormattedFileLogRoute extends CFileLogRoute
      */
     protected function getIp()
     {
-        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '[no_ip]';
+        return isset($_SERVER['REMOTE_ADDR'])
+            ? $_SERVER['REMOTE_ADDR']
+            : $this->defaults['ip'];
     }
     
     /**
@@ -104,7 +118,7 @@ class FormattedFileLogRoute extends CFileLogRoute
      */
     protected function getUri()
     {
-        $uri = '[no_uri]';
+        $uri = $this->defaults['uri'];
         
         $request = Yii::app()->getComponent('request');
         /* @var $request CHttpRequest */
@@ -126,7 +140,9 @@ class FormattedFileLogRoute extends CFileLogRoute
      */
     protected function getRef()
     {
-        return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '[no_ref]';
+        return isset($_SERVER['HTTP_REFERER'])
+            ? $_SERVER['HTTP_REFERER']
+            : $this->defaults['ref'];
     }
     
     /**
