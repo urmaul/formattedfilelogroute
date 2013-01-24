@@ -153,11 +153,13 @@ class FormattedFileLogRoute extends CFileLogRoute
     {
         $ref = $this->getRef();
         
-        $request = Yii::app()->getComponent('request');
-        /* @var $request CHttpRequest */
-        
-        if (isset($request)) {
-            $ref = str_replace($request->getHostInfo(), '', $ref);
+        if ($ref !== $this->defaults['ref']) {
+            $request = Yii::app()->getComponent('request');
+            /* @var $request CHttpRequest */
+
+            if (isset($request)) {
+                $ref = str_replace($request->getHostInfo(), '', $ref);
+            }
         }
         
         return $ref;
