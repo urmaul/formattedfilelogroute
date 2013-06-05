@@ -105,16 +105,12 @@ class FormattedFileLogRoute extends CFileLogRoute
     protected function getUri()
     {
         $uri = '[no_uri]';
-        
+
         $request = Yii::app()->getComponent('request');
         /* @var $request CHttpRequest */
-        
-        if (isset($request)) {
-            try {
-                $uri = $request->getRequestUri();
 
-            } catch (CException $exc) {
-            }
+        if (isset($request) && isset($_SERVER['SERVER_NAME'])) {
+            $uri = $request->getRequestUri();
         }
 
         return $uri;
@@ -140,7 +136,7 @@ class FormattedFileLogRoute extends CFileLogRoute
         $request = Yii::app()->getComponent('request');
         /* @var $request CHttpRequest */
         
-        if (isset($request)) {
+        if (isset($request) && isset($_SERVER['SERVER_NAME'])) {
             $ref = str_replace($request->getHostInfo(), '', $ref);
         }
         
