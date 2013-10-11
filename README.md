@@ -1,6 +1,6 @@
 # Formatted FileLogRoute for Yii Framework
 
-This log route extends CFileLogRoute and gives you ability to specify log format.
+This log route extends [CFileLogRoute](http://www.yiiframework.com/doc/api/1.1/CFileLogRoute) and gives you ability to specify log format.
 
 ## How to attach
 
