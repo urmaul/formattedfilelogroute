@@ -1,0 +1,21 @@
+{
+    "name": "urmaul/yii-formattedfilelogroute",
+    "type": "library",
+    "description": "This log route extends CFileLogRoute and gives you ability to specify log format.",
+    "keywords": ["yii", "log", "file", "route"],
+    "homepage": "https://github.com/urmaul/formattedfilelogroute",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bogdan Kolbik"
+        }
+    ],
+    "require": {
+        "yiisoft/yii": "~1.1"
+    },
+    "autoload": {
+        "classmap": [
+            "FormattedFileLogRoute.php"
+        ]
+    }
+}
