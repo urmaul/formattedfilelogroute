@@ -126,7 +126,7 @@ class FormattedFileLogRoute extends CFileLogRoute
         if (isset($request) && isset($_SERVER['SERVER_NAME'])) {
 			try {
 				$uri = $request->getRequestUri();
-			} catch (CException) {
+			} catch (CException $e) {
 				// do nothing
 			}
         }
