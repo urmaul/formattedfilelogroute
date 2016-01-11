@@ -24,7 +24,7 @@ class FormattedFileLogRoute extends CFileLogRoute
      * Static var names
      * @var array
      */
-    protected $staticVarNames = array('ip', 'uri', 'ref', 'sref');
+    protected $staticVarNames = array('ip', 'uri', 'ref', 'sref', 'server');
     
     public function init()
     {
@@ -36,8 +36,9 @@ class FormattedFileLogRoute extends CFileLogRoute
             'ref' => '[no_ref]',
         );
         
-        foreach ($this->staticVarNames as $name)
+        foreach ($this->staticVarNames as $name) {
             $this->addStaticVar($name);
+        }
     }
     
     /**
@@ -163,5 +164,14 @@ class FormattedFileLogRoute extends CFileLogRoute
         }
         
         return $ref;
+    }
+    
+    /**
+     * Returns named var "server" - $_SERVER vairable dump.
+     * @return string 
+     */
+    protected function getServer()
+    {
+        return '$_SERVER = ' . var_export($_SERVER, true);
     }
 }
